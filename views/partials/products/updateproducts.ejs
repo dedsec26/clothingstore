@@ -1,0 +1,52 @@
+<%- layout('layouts/boilerplate') %>
+  <div class="container my-3">
+        
+<% if(msg.msg){ %>
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <%= msg.msg %> 
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% } %>
+  <h2>Update Products</h2> 
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col"><p class="text-center">Name</p></th>
+      <th scope="col"><p class="text-center">Size</p></th>
+      <th scope="col"><p class="text-center">Price</p></th>
+      <th scope="col"><p class="text-center">Stock</p></th>
+      <th scope="col"><p class="text-center">Edit</p></th>
+      <th scope="col"><p class="text-center">Delete</p></th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <%for(let product of products) {%>
+          <tr>
+          <td>
+            <p class="text-center"><%= product.name %> </p>
+          </td>
+          <td>
+            <p class="text-center"><%= product.price %> </p>
+          </td>
+          <td>
+            <p class="text-center"><%= product.price %> </p>
+          </td>
+          <td>
+            <p class="text-center"><%= product.stock %> </p>
+          </td>
+          <td>
+            <div class="text-center mx-auto"><a href="/products/<%= product._id %>/edit " class="btn btn-primary btn-sm">Edit</a></div>
+          </td>
+          <td>
+            <form action="/products/<%= product._id %>?_method=DELETE" method="POST" class="">
+              <div class="text-center mx-auto">
+            <button class="btn btn-danger btn-sm">Delete</button></form>
+          </td>
+        </tr>
+   <% } %> 
+  </tbody>
+</table>
+  </div>
+</body>

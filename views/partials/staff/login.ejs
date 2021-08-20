@@ -1,0 +1,58 @@
+<%- layout('layouts/boilerplate') %>
+  <div class="container mt-3">
+        <div class="col-md-6 offset-md-3 position relative">
+
+            <div class="col-md-6 offset-md-3">
+                <div class="justify-content-center position-absolute top-50 start-50 translate-middle">
+                    <% if(messages.error){ %>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <%= messages.error %> 
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                          </div>
+                        <% } %> 
+                        <h2 class="mb-5">Staff Login</h2>   
+                    <div class="py-5">
+                    <form
+                    action="/staff/login"
+                    method="post"
+                    class="needs-validation "
+                    novalidate
+                    >
+                        <div class="form-group mb-3">
+                            <label for="email">Email</label>
+                            <input
+                            type="email"
+                            name="email"
+                            id="email"
+                            class="form-control"
+                            required
+                            placeholder="Email"
+                            />
+                            <div class="valid-feedback">Looks good!</div>
+                            <div class="invalid-feedback">Please enter your email.</div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="password">Password</label>
+                            <input
+                            type="password"
+                            name="password"
+                            id="password"
+                            class="form-control"
+                            required
+                            placeholder="Password"
+                            />
+                            <div class="valid-feedback">Looks good!</div>
+                            <div class="invalid-feedback">Please enter your password.</div>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-success btn-block">Submit</button>
+                        </div>
+    
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+  </div>
+</body>

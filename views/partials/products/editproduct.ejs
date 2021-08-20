@@ -1,0 +1,57 @@
+<%- layout('layouts/boilerplate') %>
+<div class="container mt-3">
+    <div class="col-md-6 offset-md-3 position relative">
+        <div class="col-md-6 offset-md-3">
+            <div class="justify-content-center position-absolute top-50 start-50 translate-middle">
+                        <div class="card" style="width: 18rem;">
+                            <img src="http://localhost:3000/products/<%= product.img1  %> " class="card-img-top" alt="...">
+                            <div class="card-body">
+                              <h5 class="card-title"><%= product.name %> </h5>
+                              <form
+                              action="/products/<%=product._id  %>?_method=PATCH"
+                              method="post"
+                              class="needs-validation "
+                              novalidate
+                              id="form"
+                              >
+                                  <div class="form-group mb-3">
+                                      <label for="price">Price</label>
+                                      <input
+                                      type="number"
+                                      name="product[price]"
+                                      id="price"
+                                      class="form-control"
+                                      required
+                                      placeholder="<%= product.price %> "
+                                      value="<%= product.price %>"
+                                      />
+                                      <div class="valid-feedback">Looks good!</div>
+                                      <div class="invalid-feedback">Please enter the price.</div>
+                                  </div>
+                                  <div class="form-group mb-3">
+                                      <label for="stock">Stock Qty.</label>
+                                      <input
+                                      type="number"
+                                      name="product[stock]"
+                                      id="stock"
+                                      class="form-control"
+                                      required
+                                      placeholder="<%= product.stock %> "
+                                      value="<%= product.stock %>"
+                                      />
+                                      <div class="valid-feedback">Looks good!</div>
+                                      <div class="invalid-feedback">Please enter the stock quantity.</div>
+                                  </div>
+                                  <div class="d-flex justify-content-center">
+                                  <button type="submit" class="btn btn-success btn-block">Submit</button>
+                                  </div>
+                              </form>
+                            </div>
+                          </div>   
+                   
+                    
+                </div>
+            </div>
+        </div>
+  </div>
+</body>

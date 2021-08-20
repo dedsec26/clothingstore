@@ -1,0 +1,94 @@
+<%- layout('layouts/boilerplate') %> <%if(products && totalQty > 0){ %>
+
+<div class="container my-5">
+  <div class="row">
+    <div
+      class="col-sm-6 col-md-6 col-md-offset-3 col-md-offset-3 col-sm-offset-3"
+    >
+      <h2 class="mb-5">Shoping Cart</h2>
+      <%for(const product of products){ %>
+      <ul class="list-group">
+        <li class="list-group-item">
+          <div class="d-flex justify-content-between">
+            <strong class="pt-1"
+              ><%= product.item.name %> (<%= product.item.size.toUpperCase() %>)
+            </strong>
+            <span class="badge bg-success mb-2 mt-auto pb-1"
+              ><%= product.qty %>
+            </span>
+
+            <span class="dropdown w-25">
+              <button
+                class="btn btn-primary dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton"
+                data-mdb-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Action
+              </button>
+
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="/cart/reduce/one/<%= product.item._id %> "
+                    >Reduce by 1</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="/cart/remove/one/<%= product.item._id %> "
+                    >Remove All</a
+                  >
+                </li>
+              </ul>
+            </span>
+            <span class="badge bg-dark mb-2 mt-auto pb-1"
+              >Rs.<%= product.price %>
+            </span>
+          </div>
+        </li>
+      </ul>
+      <%} %>
+    </div>
+  </div>
+  <div class="row">
+    <div
+      class="
+        col-sm-6 col-md-6 col-md-offset-3 col-md-offset-3 col-sm-offset-3
+        mt-5
+      "
+    >
+      <strong>Total: Rs.<%= totalPrice %> </strong>
+    </div>
+  </div>
+  <hr />
+  <div class="row">
+    <div
+      class="
+        col-sm-6 col-md-6 col-md-offset-3 col-md-offset-3 col-sm-offset-3
+        mt-3
+      "
+    >
+      <a href="/cart/checkout" class="btn btn-success">Checkout</a>
+    </div>
+  </div>
+  <%} else{ %>
+
+  <div class="row">
+    <div
+      class="
+        col-sm-6 col-md-6 col-md-offset-3 col-md-offset-3 col-sm-offset-3
+        my-5
+        py-5
+        mx-5
+        px-5
+      "
+    >
+      <h2 class="text-danger text-center">No Items in Cart!</h2>
+    </div>
+  </div>
+</div>
+<%} %>

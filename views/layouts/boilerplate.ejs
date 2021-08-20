@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <!-- Font Awesome -->
+<link
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+rel="stylesheet"
+/>
+<!-- Google Fonts -->
+<link
+href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+rel="stylesheet"
+/>
+<!-- MDB -->
+<link
+href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css"
+rel="stylesheet"
+/>
+    <script
+      src="https://kit.fontawesome.com/1a9e1de3f9.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>Clothing Store</title>
+  </head>
+  <body class="d-flex flex-column">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+              <a class="navbar-brand" href="/">Bauhinia</a>
+             <!-- Toggle button -->
+    <button
+    class="navbar-toggler"
+    type="button"
+    data-mdb-toggle="collapse"
+    data-mdb-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <i class="fas fa-bars"></i>
+  </button>
+
+  <!-- Collapsible wrapper -->
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <!-- Navbar brand -->
+    <!-- Left links -->
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <%if(!isLoggedIn){  %>
+        <li class="nav-item">
+          <a class="btn btn-link btn-sm" href="/customer/login">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-link btn-sm" href="/">Shop</a>
+        </li>
+      <%}else{  %> 
+        <% if(user.type ==="admin") {%>
+          <li class="nav-item">
+            
+            <div class="dropdown">
+              <button
+                class="btn btn-link btn-sm dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton"
+                data-mdb-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Products
+              </button>
+              <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton">
+                <li><a class="dropdown-item" href="/products/add">Add</a></li>
+                <li><a class="dropdown-item" href="/products/update">Edit/Update</a></li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="nav-item">
+            
+            <div class="dropdown">
+              <button
+                class="btn btn-link btn-sm dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton"
+                data-mdb-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Orders
+              </button>
+              <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton">
+                <li><a class="dropdown-item" href="/orders/all">All</a></li>
+                <li><a class="dropdown-item" href="/orders/report/today">Today</a></li>
+                <li><a class="dropdown-item" href="/orders/report/income">Past Month Income</a></li>
+              </ul>
+            </div>
+          </li>
+
+          <li class="nav-item">
+            
+            <div class="dropdown">
+              <button
+                class="btn btn-link btn-sm dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton"
+                data-mdb-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Staffs
+              </button>
+              <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton">
+                <li><a class="dropdown-item" href="/staff/signup">Add</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-link btn-sm" href="/">Shop</a>
+          </li>
+          <% }else if(user.type === 'prod-manager'){ %>
+            <li class="nav-item">
+            
+              <div class="dropdown">
+                <button
+                  class="btn btn-link btn-sm dropdown-toggle"
+                  type="button"
+                  id="dropdownMenuButton"
+                  data-mdb-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Products
+                </button>
+                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton">
+                  <li><a class="dropdown-item" href="/products/add">Add</a></li>
+                  <li><a class="dropdown-item" href="/products/update">Edit/Update</a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item">
+            
+              <div class="dropdown">
+                <button
+                  class="btn btn-link btn-sm dropdown-toggle"
+                  type="button"
+                  id="dropdownMenuButton"
+                  data-mdb-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Orders
+                </button>
+                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton">
+                  <li><a class="dropdown-item" href="/orders/all">All</a></li>
+                  <li><a class="dropdown-item" href="/orders/report/today">Today</a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="btn btn-link btn-sm" href="/">Shop</a>
+            </li>
+            <% } else if(user.type === 'chief-accountant'){ %>
+              <li class="nav-item">
+            
+                <div class="dropdown">
+                  <button
+                    class="btn btn-link btn-sm dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton"
+                    data-mdb-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Products
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" href="/products/add">Add</a></li>
+                    <li><a class="dropdown-item" href="/products/update">Edit/Update</a></li>
+                  </ul>
+                </div>
+              </li>
+            <li class="nav-item">
+            
+              <div class="dropdown">
+                <button
+                  class="btn btn-link btn-sm dropdown-toggle"
+                  type="button"
+                  id="dropdownMenuButton"
+                  data-mdb-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Orders
+                </button>
+                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton">
+                  <li><a class="dropdown-item" href="/orders/all">All</a></li>
+                  <li><a class="dropdown-item" href="/orders/report/income">Past Month Income</a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="btn btn-link btn-sm" href="/">Shop</a>
+            </li>
+
+            <% } else if(user.type === 'products-clerk') {%>
+            <li class="nav-item">
+            
+              <div class="dropdown">
+                <button
+                  class="btn btn-link btn-sm dropdown-toggle"
+                  type="button"
+                  id="dropdownMenuButton"
+                  data-mdb-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Products
+                </button>
+                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton">
+                  <li><a class="dropdown-item" href="/products/add">Add</a></li>
+                  <li><a class="dropdown-item" href="/products/update">Edit/Update</a></li>
+                </ul>
+              </div>
+            </li> 
+            <li class="nav-item">
+              <a class="btn btn-link btn-sm" href="/">Shop</a>
+            </li>           
+
+          <%}else{ %> 
+            <li class="nav-item">
+              <a class="btn btn-link btn-sm" href="/">Shop</a>
+            </li> 
+            <li class="nav-item">
+              <a class="btn btn-link btn-sm" href="/customer/orders">All Orders</a>
+            </li> 
+            <% } %> 
+          <%} %> 
+        </ul>
+    
+    <!-- Left links -->
+  </div>
+  <!-- Collapsible wrapper -->
+              <div class="d-flex align-items-center">
+                <a class="text-reset me-3" href="/cart">
+                  <i class="fas fa-shopping-cart" style="color: #FBFBFB;"></i>
+                  <% if(session.cart) {%> 
+                    <span class="badge rounded-pill badge-notification bg-danger"><%=session.cart.totalQty%>
+                    </span>
+                  <% }%>
+                </a>
+
+                <div class="dropdown">
+                  
+                  <button
+                  class="btn btn-link dropdown-toggle px-2 py-1 btn-sm"
+                  type="button"
+                  id="dropdownMenuButton"
+                  data-mdb-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                <% if (isLoggedIn)  {%>
+                  <p class="my-n1"><%= user.name %> </p>
+                  <% }else{ %>
+                     
+                    
+                    <i class="fas fa-sign-in-alt"></i>
+                    <% } %> 
+                </button>
+               
+                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark" aria-labelledby="dropdownMenuLink">
+                    
+
+                    <% if (isLoggedIn)  {%>
+                      <li><a class="dropdown-item" href="/logout">Log Out</a></li>
+                      <% }else{ %>
+                         
+                        <li><a class="dropdown-item" href="/customer/login">Sign In</a></li>
+                        <li><a class="dropdown-item" href="/customer/signup">Sign Up</a></li>
+                        <li><a class="dropdown-item" href="/staff/login">Staff</a></li>
+                        <% } %>  
+                  </ul>
+                </div>
+              </div>
+
+
+        </div>
+      </div>
+    </nav>
+    <%- body %>
+    <script
+    type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"
+  ></script>
+    <script>
+      // Example starter JavaScript for disabling form submissions if there are invalid fields
+      (function () {
+        "use strict";
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll(".needs-validation");
+
+        // Loop over them and prevent submission
+        Array.from(forms).forEach(function (form) {
+          form.addEventListener(
+            "submit",
+            function (event) {
+              if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+              }
+
+              form.classList.add("was-validated");
+            },
+            false
+          );
+        });
+      })();
+    </script>
+  </body>
+</html>

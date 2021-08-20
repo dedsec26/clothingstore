@@ -1,0 +1,38 @@
+<%- layout('layouts/boilerplate') %>
+
+<div class="container my-4">
+  <h2 class="mx-2">Past month income report</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Total Quantity</th>
+        <th scope="col">Price</th>
+        <th scope="col">Ordered Date</th>
+        <th scope="col">Staus</th>
+      </tr>
+    </thead>
+    <tbody>
+        <%for(const order of orders){ %>
+            <tr>
+                <td> <%= order._id %> </th>
+                <td><%= order.totalQty %> </td>
+                <td>Rs. <%= order.totalPrice %></td>
+                <td><%= order.createdAt %></td>
+                <td><%= order.status %></td>
+
+              </tr>
+            <% } %> 
+    </tbody>
+  </table>
+    
+    
+
+    <div class="col-md-6 offset-md-3 position relative">
+    
+            
+                <p class="text-center"><strong>Income for last 30 days: </strong>Rs. <%= income %> </p>
+            
+        
+    </div>
+</div>

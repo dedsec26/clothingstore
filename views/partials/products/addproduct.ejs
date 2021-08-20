@@ -1,0 +1,164 @@
+<%- layout('layouts/boilerplate') %>
+  <div class="container mt-3">
+        <div class=" position relative">
+            <div class="col-md-6 offset-md-3  ">
+                <div class="mt-2 pt-2">
+                  <h2>Add a product</h2>
+                  <% if(msg.msg){ %>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <%= msg.msg %> 
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                      </div>
+                    <% } %> 
+                    <div>
+                    <form
+                    action="/products"
+                    method="post"
+                    class="needs-validation "
+                    novalidate
+                    id="form"
+                    enctype="multipart/form-data"
+                    >
+                        <div class="form-group mb-3">
+                            <label for="name">Name</label>
+                            <input
+                            type="text"
+                            name="product[name]"
+                            id="name"
+                            class="form-control"
+                            required
+                            placeholder="Name"
+                            />
+                            <div class="valid-feedback">Looks good!</div>
+                            <div class="invalid-feedback">Please enter product name.</div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="price">Price</label>
+                            <input
+                            type="number"
+                            name="product[price]"
+                            id="price"
+                            class="form-control"
+                            required
+                            placeholder="Price"
+                            />
+                            <div class="valid-feedback">Looks good!</div>
+                            <div class="invalid-feedback">Please enter product price.</div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="stock">Stock Qty.</label>
+                            <input
+                            type="number"
+                            name="product[stock]"
+                            id="stock"
+                            class="form-control"
+                            required
+                            placeholder="Stock Qty."
+                            />
+                            <div class="valid-feedback">Looks good!</div>
+                            <div class="invalid-feedback">Please enter product price.</div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="sex">Sex</label>
+                            <select
+                              aria-label="Default select example"
+                              id="sex"
+                              name="product[sex]"
+                              class="form-control mb-3 form-select"
+                              required
+                            >
+                              <option value="male">Male</option>
+                              <option value="female">Female</option>
+                              <option value="uni">Unisex</option>
+                            </select>
+                          </div>
+
+                          <div class="form-group mb-3">
+                            <label for="size">Size</label>
+                            <select
+                              aria-label="Default select example"
+                              id="size"
+                              name="product[size]"
+                              class="form-control mb-3 form-select"
+                              required
+                            >
+                              <option value="medium">Medium</option>
+                              <option value="small">Small</option>
+                              <option value="large">Large</option>
+                              <option value="extra large">Extra Large</option>
+                            </select>
+                          </div>
+
+                          <div class="form-group mb-3">
+                            <label for="description">Description</label>
+                            <textarea
+                            name="product[description]"
+                            id="description"
+                            class="form-control"
+                            required
+                            placeholder="Description"
+                            ></textarea>
+                            <div class="valid-feedback">Looks good!</div>
+                            <div class="invalid-feedback">Please enter product description.</div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="type">Type</label>
+                            <select
+                              aria-label="Default select example"
+                              id="type"
+                              name="product[type]"
+                              class="form-control mb-3 form-select"
+                              required
+                            >
+                              <option value="jeans">Jeans</option>
+                              <option value="shorts">Shorts</option>
+                              <option value="pants">Pants</option>
+                              <option value="shirts">Shirts</option>
+                              <option value="sweatshirts">Sweatshirts</option>
+                              <option value="tshirts">T-Shirts</option>
+                              <option value="accessories">Accessories</option>
+                            </select>
+                          </div>
+
+                        <div class="form-group mb-3">
+                            <label class="mb-3">Product Images</label>
+                            <input type="file" id="image1" name="img1" class="form-control m2-4" accept="image/*" onchange="loadFile(event,1)" required />
+                            <div class="invalid-feedback">At least one image is required</div>
+                            <button class="btn btn-danger d-none mb-2 btn-sm" id="del1" type="button">Remove</button>
+                            <img src="" alt="" class="img-thumbnail d-none" id="img1">
+                            <input type="file" id="image2" name="img2" class="form-control mt-4" accept="image/*" onchange="loadFile(event,2)" />
+                            <button class="btn btn-danger d-none mb-2 btn-sm" id="del2" type="button">Remove</button>
+                            <img src="" alt="" class="img-thumbnail d-none" id="img2">
+                            <input type="file" id="image3" name="img3" class="form-control my-4" accept="image/*" onchange="loadFile(event,3)" />
+                            <button class="btn btn-danger d-none mb-2 btn-sm" id="del3" type="button">Remove</button>
+                            <img src="" alt="" class="img-thumbnail d-none" id="img3">
+                          </div>
+                        <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-success btn-block">Submit</button>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+  </div>
+  <script>
+    let loadFile = function(event,n) {
+      let element = document.getElementById(`img${n}`)
+      let delBtn = document.getElementById(`del${n}`)
+      let input = document.getElementById(`image${n}`)
+      element.src = URL.createObjectURL(event.target.files[0])
+      element.classList.remove("d-none")
+      delBtn.classList.remove("d-none")
+      delBtn.onclick = ()=>{
+
+        element.src = ""
+        element.classList.add("d-none")
+        delBtn.classList.add("d-none")
+        input.value = ""
+      }
+    };
+  </script>
+</body>

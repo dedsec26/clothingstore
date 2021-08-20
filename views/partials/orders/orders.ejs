@@ -1,0 +1,44 @@
+<%- layout('layouts/boilerplate') %>
+<div class="container my-4">
+
+        <% if(!msg){ %>
+          <h2 class="mx-2">All Orders</h2>
+          <% } else{%>
+            <h2 class="mx-2"><%= msg  %> </h2>
+
+            <% } %>   
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Total Quantity</th>
+        <th scope="col">Price</th>
+        <th scope="col">Ordered Date</th>
+        <th scope="col">Staus</th>
+        <% if(user.type !== 'user'){ %> 
+          <th scope="col">Edit</th>
+          <% } %> 
+      </tr>
+    </thead>
+    <tbody>
+        <%for(const order of orders){ %>
+            <tr>
+                <td> <%= order._id %> </th>
+                <td><%= order.totalQty %> </td>
+                <td>Rs. <%= order.totalPrice %></td>
+                <td><%= order.createdAt %></td>
+                <td><%= order.status %></td>
+                <% if(user.type !== 'user'){ %> 
+                  <td>
+                      <div class="text-center mx-auto"><a href="/orders/<%= order._id %>/edit " class="btn btn-primary btn-sm">Edit</a></div>
+                  </td>
+                </tr>
+                  <% } %> 
+            <% } %> 
+    </tbody>
+  </table>
+    
+    
+
+  
+</div>

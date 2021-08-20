@@ -1,0 +1,46 @@
+<%- layout('layouts/boilerplate') %>
+<div class="container my-3">
+    <h2 class="mt-5">Shoping Cart</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Price</th>
+      </tr>
+    </thead>
+    <tbody>
+        <%for(const product of products){ %>
+            <tr>
+                <td> <%= product.item.name %> </th>
+                <td><%= product.qty %> </td>
+                <td>Rs.<%= product.price %></td>
+              </tr>
+            <% } %> 
+      <tr>
+        <th scope="row" colspan="3">Total: <span class="fw-normal mx-2">Rs.<%= totalPrice %> .</span> </th>
+      </tr>
+      <tr>
+        <th scope="row" colspan="3">Shipping Address:<span class="fw-normal mx-2"><%= user.address %> .</span></th>
+      </tr>
+      <tr>
+        <th scope="row" colspan="3"> <span class="mx-5 px-5">Payment Option</span>
+            <input type="radio" id="flexRadioDefault" class="form-check-input mx-4" checked/>
+            <label class="form-check-label" for="flexRadioDefault">Cash on delivery</label>
+            <input type="radio" id="flexRadioDisabled" class="form-check-input mx-4" disabled/>
+            <label class="form-check-label" for="flexRadioDisabled"> Other </label>
+        </th>
+      </tr>
+    </tbody>
+  </table>
+    
+    
+
+    <div class="col-md-6 offset-md-3 position relative">
+        <div class="col-md-6 offset-md-3">
+            <div class="justify-content-center">
+                <a href="/cart/order/place" class="btn btn-success mx-5 px-5">Place Order</a>
+            </div>
+        </div>
+    </div>
+</div>

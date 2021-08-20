@@ -1,0 +1,124 @@
+<%- layout('layouts/boilerplate') %>
+  <div class="container mt-3">
+        <div class="col-md-6 offset-md-3 position relative">
+            <div class="col-md-6 offset-md-3">
+                <div class="justify-content-center position-absolute top-50 start-50 translate-middle">
+                    <% if(err){ %>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <%= err %>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> 
+                          </div>
+                        <% } %> 
+                        <h2 class="justify-content-center">Customer Signup</h2>   
+                    <div class="py-5">
+                    <form
+                    action="/customer/signup"
+                    method="post"
+                    class="needs-validation "
+                    novalidate
+                    >
+                        <div class="form-group mb-3">
+                            <label for="name">Name</label>
+                            <input
+                            type="text"
+                            name="signup[name]"
+                            id="name"
+                            class="form-control"
+                            required
+                            placeholder="Name"
+                            <% if(err){%>
+                                value=<%= data.name %> 
+                                <% } %>  
+                            />
+                            <div class="valid-feedback">Looks good!</div>
+                            <div class="invalid-feedback">Please enter your name.</div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="email">Email</label>
+                            <input
+                            type="email"
+                            name="signup[email]"
+                            id="email"
+                            class="form-control"
+                            required
+                            placeholder="Email"
+                            <% if(err){%>
+                                value=<%= data.email %> 
+                                <% } %>  
+                            />
+                            <div class="valid-feedback">Looks good!</div>
+                            <div class="invalid-feedback">Please enter your email.</div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="address">Postal Address</label>
+                            <input
+                            type="text"
+                            name="signup[address]"
+                            id="address"
+                            class="form-control"
+                            required
+                            placeholder="Postal Address"
+                            <% if(err){%>
+                                value=<%= data.address %> 
+                                <% } %>  
+                            />
+                            <div class="valid-feedback">Looks good!</div>
+                            <div class="invalid-feedback">Please enter your address.</div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="phone1">Main Phone No.</label>
+                            <input
+                            type="text"
+                            name="signup[phone1]"
+                            id="phone1"
+                            class="form-control"
+                            required
+                            placeholder="Main Phone No."
+                            <% if(err){%>
+                                value=<%= data.phone1 %> 
+                                <% } %>  
+                            />
+                            <div class="valid-feedback">Looks good!</div>
+                            <div class="invalid-feedback">Please enter your main phone no.</div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="phone2">Secondary Phone No.</label>
+                            <input
+                            type="text"
+                            name="signup[phone2]"
+                            id="phone2"
+                            class="form-control"
+                            required
+                            placeholder="Secondary Phone No."
+                            <% if(err){%>
+                                value=<%= data.phone2 %> 
+                                <% } %>  
+                            />
+                            <div class="valid-feedback">Looks good!</div>
+                            <div class="invalid-feedback">Please enter your secondary phone no.</div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="password">Password</label>
+                            <input
+                            type="password"
+                            name="signup[password]"
+                            id="password"
+                            class="form-control"
+                            required
+                            placeholder="Password"
+                            />
+                            <div class="valid-feedback">Looks good!</div>
+                            <div class="invalid-feedback">Please enter a password.</div>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-success btn-block">Submit</button>
+                        </div>
+    
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+  </div>
+</body>
