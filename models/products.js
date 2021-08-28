@@ -31,9 +31,7 @@ const productsSchema = new Schema({
     type: String,
     required: true,
   },
-  img1: String,
-  img2: String,
-  img3: String,
+  img: String,
 });
 
 module.exports = Mongoose.model("Products", productsSchema);

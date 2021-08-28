@@ -28,7 +28,7 @@ rel="stylesheet"
   <body class="d-flex flex-column">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
-              <a class="navbar-brand" href="/">Bauhinia</a>
+              <a class="navbar-brand" href="/">Clothing Store</a>
              <!-- Toggle button -->
     <button
     class="navbar-toggler"
@@ -231,49 +231,50 @@ rel="stylesheet"
         </ul>
     
     <!-- Left links -->
+    <div class="d-flex align-items-center">
+        <a class="text-reset mx-3" href="/cart">
+          <i class="fas fa-shopping-cart" style="color: #FBFBFB;"></i>
+          <% if(session.cart) {%> 
+            <span class="badge rounded-pill badge-notification bg-danger"><%=session.cart.totalQty%>
+            </span>
+          <% }%>
+        </a>
+    </div>
+    <div class="dropdown">
+      
+      <button
+      class="btn btn-link dropdown-toggle px-2 py-1 btn-sm"
+      type="button"
+      id="dropdownMenuButton"
+      data-mdb-toggle="dropdown"
+      data-mdb-display="static"
+      aria-expanded="false"
+    >
+    <% if (isLoggedIn)  {%>
+      <span class="my-n1"><%= user.name %> </span>
+      <% }else{ %>
+         
+        
+        <i class="fas fa-sign-in-alt"></i>
+        <% } %> 
+    </button>
+   
+      <ul class="dropdown-menu dropdown-menu-lg-end dropdown-menu-dark" aria-labelledby="dropdownMenuLink">
+        
+
+        <% if (isLoggedIn)  {%>
+          <li><a class="dropdown-item" href="/logout">Log Out</a></li>
+          <% }else{ %>
+             
+            <li><a class="dropdown-item" href="/customer/login">Sign In</a></li>
+            <li><a class="dropdown-item" href="/customer/signup">Sign Up</a></li>
+            <li><a class="dropdown-item" href="/staff/login">Staff</a></li>
+            <% } %>  
+      </ul>
+    </div>
   </div>
   <!-- Collapsible wrapper -->
-              <div class="d-flex align-items-center">
-                <a class="text-reset me-3" href="/cart">
-                  <i class="fas fa-shopping-cart" style="color: #FBFBFB;"></i>
-                  <% if(session.cart) {%> 
-                    <span class="badge rounded-pill badge-notification bg-danger"><%=session.cart.totalQty%>
-                    </span>
-                  <% }%>
-                </a>
 
-                <div class="dropdown">
-                  
-                  <button
-                  class="btn btn-link dropdown-toggle px-2 py-1 btn-sm"
-                  type="button"
-                  id="dropdownMenuButton"
-                  data-mdb-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                <% if (isLoggedIn)  {%>
-                  <p class="my-n1"><%= user.name %> </p>
-                  <% }else{ %>
-                     
-                    
-                    <i class="fas fa-sign-in-alt"></i>
-                    <% } %> 
-                </button>
-               
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark" aria-labelledby="dropdownMenuLink">
-                    
-
-                    <% if (isLoggedIn)  {%>
-                      <li><a class="dropdown-item" href="/logout">Log Out</a></li>
-                      <% }else{ %>
-                         
-                        <li><a class="dropdown-item" href="/customer/login">Sign In</a></li>
-                        <li><a class="dropdown-item" href="/customer/signup">Sign Up</a></li>
-                        <li><a class="dropdown-item" href="/staff/login">Staff</a></li>
-                        <% } %>  
-                  </ul>
-                </div>
-              </div>
 
 
         </div>

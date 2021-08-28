@@ -1,40 +1,12 @@
 const Products = require("../models/products");
 const express = require("express");
 const router = express.Router();
-const multer = require("multer");
-const fs = require("fs");
-const path = require("path");
+const uploadImage = require("../utils/uploadimage");
+const upload = require("../utils/multer");
 
 const checkAuth = require("../utils/auth-rules/staffchekAuth");
 
 const staffCheck = require("../utils/auth-rules/staffCheck");
-
-const fileStorageEngine = multer.diskStorage({
-  destination: (req, file, cb) => {
-    dir = __dirname.slice(0, 38) + "/src/products/" + req.body.product.name;
-    // console.log(file);
-    if (!fs.existsSync(dir)) fs.mkdirSync(dir);
-    cb(null, dir);
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname));
-  },
-});
-
-const upload = multer({ storage: fileStorageEngine }).fields([
-  {
-    name: "img1",
-    maxCount: 1,
-  },
-  {
-    name: "img2",
-    maxCount: 1,
-  },
-  {
-    name: "img3",
-    maxCount: 1,
-  },
-]);
 
 router.get("/", async (req, res, next) => {
   try {
@@ -71,37 +43,29 @@ router.get("/update", checkAuth, staffCheck, async (req, res, next) => {
     next(error);
   }
 });
-router.post("/", checkAuth, staffCheck, upload, async (req, res, next) => {
-  try {
-    const msg = {};
-    const { img1, img2, img3 } = req.files;
-    // console.log(img1);
-    const { product } = req.body;
-    const prod = new Products(product);
-
-    if (img1) {
-      let newpath = img1[0].path.slice(52);
-      prod.img1 = newpath;
-      // console.log(newpath);
+router.post(
+  "/",
+  checkAuth,
+  staffCheck,
+  upload.single("img"),
+  uploadImage,
+  async (req, res, next) => {
+    try {
+      const msg = {};
+      // console.log(img1);
+      const { product } = req.body;
+      const prod = new Products(product);
+      prod.img = req.body.image;
+      console.log(prod);
+      result = await prod.save();
+      // console.log(result);
+      msg.success = "Product Added Succesfully!!!";
+      res.redirect(`/products/add?msg=${msg.success}`);
+    } catch (error) {
+      next(error);
     }
-    if (img2) {
-      let newpath = img2[0].path.slice(52);
-      prod.img2 = newpath;
-      // console.log(newpath);1
-    }
-    if (img3) {
-      let newpath = img3[0].path.slice(52);
-      prod.img3 = newpath;
-      // console.log(newpath);1
-    }
-    result = await prod.save();
-    // console.log(result);
-    msg.success = "Product Added Succesfully!!!";
-    res.redirect(`/products/add?msg=${msg.success}`);
-  } catch (error) {
-    next(error);
   }
-});
+);
 
 router.patch("/:id", checkAuth, staffCheck, async (req, res, next) => {
   try {

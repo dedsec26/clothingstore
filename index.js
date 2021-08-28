@@ -9,10 +9,12 @@ const flash = require("express-flash");
 const session = require("express-session");
 const methodOverride = require("method-override");
 const bcrypt = require("bcrypt");
+const dotenv = require("dotenv");
 const Staffs = require("./models/staffs");
 const AppError = require("./utils/AppError");
 const { initializePassport } = require("./utils/passport-config");
 initializePassport(passport);
+dotenv.config();
 
 app.engine("ejs", ejsMate);
 app.use(express.static("src"));
@@ -31,12 +33,13 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(methodOverride("_method"));
 
-app.listen(3000, () => {
-  console.log("Server started on port 3000");
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log("Server started on port: ", port);
 });
 
 mongoose
-  .connect("mongodb://localhost:27017/clothing-store", {
+  .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
@@ -64,7 +67,7 @@ app.use(async function (req, res, next) {
     const pass = await bcrypt.hash("admin", 10);
     // console.log(pass);
     let admin = await Staffs.find({ type: "admin" });
-    if (admin) return next();
+    if (admin.length > 0) return next();
     const newAdmin = new Staffs({
       name: "Aflal",
       type: "admin",
