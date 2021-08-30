@@ -1,12 +1,12 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-
 const ejsMate = require("ejs-mate");
 const path = require("path");
 const passport = require("passport");
 const flash = require("express-flash");
 const session = require("express-session");
+const sessionStore = require("connect-mongo");
 const methodOverride = require("method-override");
 const bcrypt = require("bcrypt");
 const dotenv = require("dotenv");
@@ -17,7 +17,6 @@ initializePassport(passport);
 dotenv.config();
 
 app.engine("ejs", ejsMate);
-app.use(express.static("src"));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -27,6 +26,11 @@ app.use(
     secret: "secret",
     resave: false,
     saveUninitialized: false,
+    store: sessionStore.create({
+      mongoUrl: process.env.MONGO_URI,
+      touchAfter: 100,
+      ttl: 60,
+    }),
   })
 );
 app.use(passport.initialize());
