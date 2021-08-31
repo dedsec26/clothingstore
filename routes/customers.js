@@ -4,9 +4,19 @@ const passport = require("passport");
 const bcrypt = require("bcrypt");
 const Users = require("../models/users");
 const Orders = require("../models/orders");
+const { usersSchema } = require("../utils/schemas");
 
 const userrCheckAuth = require("../utils/auth-rules/usercheck");
 const checkNoAuth = require("../utils/auth-rules/checknoAuth");
+
+const joiValidation = (req, res, next) => {
+  const { error } = usersSchema.validate(req.body.signup);
+  if (error) {
+    const msg = error.details.map((el) => el.message).join(",");
+    throw new ExpressError(msg, 400);
+  }
+  next();
+};
 
 router.get("/login", checkNoAuth, (req, res) => {
   res.render("partials/customers/login");
@@ -24,7 +34,7 @@ router.get("/signup", checkNoAuth, (req, res) => {
   const err = "";
   res.render("partials/customers/signup", { err });
 });
-router.post("/signup", checkNoAuth, async (req, res, next) => {
+router.post("/signup", checkNoAuth, joiValidation, async (req, res, next) => {
   try {
     const { email } = req.body.signup;
     const availability = await Users.findOne({ email: email });
@@ -38,6 +48,7 @@ router.post("/signup", checkNoAuth, async (req, res, next) => {
     } else {
       const hashedPassword = await bcrypt.hash(req.body.signup.password, 10);
       let newUser = new Users(req.body.signup);
+      newUser.type = "user";
       newUser.password = hashedPassword;
       let result = await newUser.save();
       // console.log(result);
