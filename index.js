@@ -29,7 +29,7 @@ app.use(
     store: sessionStore.create({
       mongoUrl: process.env.MONGO_URI,
       touchAfter: 100,
-      ttl: 60,
+      ttl: 60 * 60 * 24,
     }),
   })
 );
